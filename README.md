@@ -5,3 +5,9 @@
 En primer lugar tenemos que plantear que bases vamos a utilizar en nuestro Magic Mirror.
 
 - Uso de análisis meteorológico con https://www.magicmirrorcentral.com/software-for-magic-mirrors/  usando principalmente : <https://darksky.net/dev>
+
+- Lectura de datos internos de la casa con conexión a la Raspberry original.
+
+- Función de reconocimiento facial.
+
+- Conectividad con el resto de sensores de la casa para su unificación.
