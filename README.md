@@ -11,3 +11,8 @@ En primer lugar tenemos que plantear que bases vamos a utilizar en nuestro Magic
 - Función de reconocimiento facial.
 
 - Conectividad con el resto de sensores de la casa para su unificación.
+
+- Detección de una persona para salir de la hibernación
+
+Modulos extra : 
+https://www.magicmirrorcentral.com/top-10-magic-mirror-modules-check/
