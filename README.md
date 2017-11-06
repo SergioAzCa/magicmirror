@@ -16,3 +16,15 @@ En primer lugar tenemos que plantear que bases vamos a utilizar en nuestro Magic
 
 Modulos extra : 
 https://www.magicmirrorcentral.com/top-10-magic-mirror-modules-check/
+
+
+
+*Instalamos los siguientes paquetes para instalar NODE:*
+
+'sudo apt-get install nodejs npm O sudo apt-get install nodejs sudo'
+
+'sudo npm install -g nodewebkit'
+
+'npm install -g generator-node-webkit'
+ 
+ 'npm install -g yo'
