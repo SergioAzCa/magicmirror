@@ -28,3 +28,7 @@ sudo npm install -g nodewebkit
 npm install -g generator-node-webkit
  
  npm install -g yo
+
+//Si tenemos problemas al instalar el npm o al realizar cualquier tipo de instalacin posterior deberemos eliminarlo y hacer :
+
+sudo apt-get install npm
