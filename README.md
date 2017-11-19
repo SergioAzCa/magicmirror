@@ -4,7 +4,7 @@
 
 En primer lugar tenemos que plantear que bases vamos a utilizar en nuestro Magic Mirror.
 
-- Uso de análisis meteorológico con https://www.magicmirrorcentral.com/software-for-magic-mirrors/  usando principalmente : <https://darksky.net/dev>
+- Uso de análisis meteorológico con <https://darksky.net/dev>
 
 - Lectura de datos internos de la casa con conexión a la Raspberry original.
 
@@ -14,8 +14,13 @@ En primer lugar tenemos que plantear que bases vamos a utilizar en nuestro Magic
 
 - Detección de una persona para salir de la hibernación
 
-Modulos extra : 
-https://www.magicmirrorcentral.com/top-10-magic-mirror-modules-check/
+
+
+Usamos PDF.js para la lectura de la web de METRO
+
+Para los módulos de Python necesitaremos instalar pip y los diversos módulos que aparezcan en el archivo python.
+
+
 
 
 
