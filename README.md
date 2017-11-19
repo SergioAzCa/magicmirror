@@ -21,8 +21,9 @@ Usamos PDF.js para la lectura de la web de METRO
 Para los módulos de Python necesitaremos instalar pip y los diversos módulos que aparezcan en el archivo python.
 
 
-
-
+// IP FIJA EN RASPBYAN
+sudo nano /etc/dhcpcd.conf  // static ip_address=192.168.1.XX cambiamos a la ip que queramos
+sudo nano /etc/network/interfaces // Nos aseguramos que la ip sea fija o manual
 
 #Instalamos los siguientes paquetes para instalar NODE:
 
