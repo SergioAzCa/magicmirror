@@ -42,3 +42,4 @@ sudo apt-get install npm
 
 GRUNT en el proyecto : 
 npm install grunt --save-dev
+npm install --save-dev time-grunt
