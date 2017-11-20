@@ -39,3 +39,6 @@ npm install -g generator-node-webkit
 //Si tenemos problemas al instalar el npm o al realizar cualquier tipo de instalacin posterior deberemos eliminarlo y hacer :
 
 sudo apt-get install npm
+
+GRUNT en el proyecto : 
+npm install grunt --save-dev
