@@ -41,7 +41,10 @@ npm install -g generator-node-webkit
 sudo apt-get install npm
 
 GRUNT en el proyecto : 
-npm install grunt --save-dev
+-npm install grunt --save-dev
 
+-npm install --save-dev grunt-contrib-clean grunt-contrib-compress grunt-contrib-concat grunt-contrib-copy grunt-contrib-jshint grunt-contrib-rename load-grunt-tasks time-grunt
 
-npm install --save-dev grunt-contrib-clean grunt-contrib-compress grunt-contrib-concat grunt-contrib-copy grunt-contrib-jshint grunt-contrib-rename load-grunt-tasks time-grunt
+Posteriormente utilizamos :
+
+-sudo grunt dist-linux --force
