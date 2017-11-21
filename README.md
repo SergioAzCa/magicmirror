@@ -1,4 +1,4 @@
-## VILCUM MAGIC MIRROR
+## FOX MAGIC MIRROR
 
 # Creación de un Magic Mirror completo
 
