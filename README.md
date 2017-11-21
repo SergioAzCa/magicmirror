@@ -40,11 +40,80 @@ npm install -g generator-node-webkit
 
 sudo apt-get install npm
 
-GRUNT en el proyecto : 
--npm install grunt --save-dev
 
--npm install --save-dev grunt-contrib-clean grunt-contrib-compress grunt-contrib-concat grunt-contrib-copy grunt-contrib-jshint grunt-contrib-rename load-grunt-tasks time-grunt
+Como crear una aplicacion en NODEWEBKIT
+0º Accedemos como root
 
-Posteriormente utilizamos :
+sudo su
 
--sudo grunt dist-linux --force
+1º Creamos nuestra carpeta y generamos X carpetas correspondientes a los distintos espacios de trabajos que queramos js/css/python/php etc...
+
+IMAGEN
+
+2º Generamos un archivo package.json que contendra :
+
+{
+  "name": "NOMBREDELPROYECTO",
+  "version": "0.0.1",
+  "main": "./html/index.html", // directorio donde este nuestro html
+  "window": {
+    "toolbar": false,
+    "width": 800,
+    "height": 500
+  }
+}
+
+
+3º Creamos dentro de esta primera carpeta una nueva que se llamara  PROYECTO_build, que contendra 
+
+IMAGEN
+
+4º Dentro de la carpeta src copiaremos todo el contenido de nuestro primera carpeta
+
+IMAGEN
+
+5º Generamos en la carteta PROYECTO_build el archivo package.json nuevo :
+
+{
+"name": "testproject-build",
+"version": "0.0.1",
+"description": "Building testproject",
+"author": "Alguien <alguien@algunsitio.com>",
+"private": true,
+"dependencies": {
+"grunt": "~0.4.2",
+"grunt-node-webkit-builder": "~0.1.14"
+}
+}
+
+
+6º Generamos también el contenido de Grunt.js 
+
+module.exports = function(grunt) {
+grunt.initConfig({
+pkg: grunt.file.readJSON('src/package.json'),
+nodewebkit: {
+options: {
+build_dir: './dist',
+// specifiy what to build
+mac: false,
+win: true,
+linux32: true,
+linux64: true
+},
+src: './src/**/*'
+},
+});
+
+grunt.loadNpmTasks(‘grunt-node-webkit-builder’);
+
+grunt.registerTask(‘default’, [‘nodewebkit’]);
+};
+
+7º Entramos dentro de la carpeta PROYECTO_build y instalamos npm
+
+npm install
+
+8º Lanzamos GRUNT
+
+grunt --force
