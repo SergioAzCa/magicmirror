@@ -48,7 +48,7 @@ sudo su
 
 1º Creamos nuestra carpeta y generamos X carpetas correspondientes a los distintos espacios de trabajos que queramos js/css/python/php etc...
 
-IMAGEN
+![image](/Users/Sergio/Desktop/.png)
 
 2º Generamos un archivo package.json que contendra :
 
@@ -66,11 +66,11 @@ IMAGEN
 
 3º Creamos dentro de esta primera carpeta una nueva que se llamara  PROYECTO_build, que contendra 
 
-IMAGEN
+![image](/Users/Sergio/Desktop/3.png)
 
 4º Dentro de la carpeta src copiaremos todo el contenido de nuestro primera carpeta
 
-IMAGEN
+![image](/Users/Sergio/Desktop/4.png)
 
 5º Generamos en la carteta PROYECTO_build el archivo package.json nuevo :
 
