@@ -15,7 +15,6 @@ En primer lugar tenemos que plantear que bases vamos a utilizar en nuestro Magic
 - Detección de una persona para salir de la hibernación
 
 
-
 Usamos PDF.js para la lectura de la web de METRO
 
 Para los módulos de Python necesitaremos instalar pip y los diversos módulos que aparezcan en el archivo python.
@@ -44,7 +43,9 @@ sudo apt-get install npm
 Como crear una aplicacion en NODEWEBKIT
 0º Accedemos como root
 
+```
 sudo su
+```
 
 1º Creamos nuestra carpeta y generamos X carpetas correspondientes a los distintos espacios de trabajos que queramos js/css/python/php etc...
 
@@ -52,7 +53,8 @@ sudo su
 
 2º Generamos un archivo package.json que contendra :
 
-```{
+```
+{
   "name": "NOMBREDELPROYECTO",
   "version": "0.0.1",
   "main": "./html/index.html", // directorio donde este nuestro html
@@ -75,7 +77,8 @@ sudo su
 
 5º Generamos en la carteta PROYECTO_build el archivo package.json nuevo :
 
-```{
+```
+{
 "name": "testproject-build",
 "version": "0.0.1",
 "description": "Building testproject",
@@ -91,7 +94,8 @@ sudo su
 
 6º Generamos también el contenido de Grunt.js 
 
-```module.exports = function(grunt) {
+```
+module.exports = function(grunt) {
 grunt.initConfig({
 pkg: grunt.file.readJSON('src/package.json'),
 nodewebkit: {
@@ -115,8 +119,12 @@ grunt.registerTask(‘default’, [‘nodewebkit’]);
 
 7º Entramos dentro de la carpeta PROYECTO_build y instalamos npm
 
+```
 npm install
+```
 
 8º Lanzamos GRUNT
 
+```
 grunt --force
+```
