@@ -121,28 +121,32 @@ function weatherReport(lat,long) {
 				skicons     = forecast.currently.icon,
 				tiempo     = forecast.currently.time,
 				viento     = forecast.currently.windSpeed,
-				humidity = forecast.currently.humidity,
+				humidity = forecast.currently.humidity * 100,
 				summary  = forecast.currently.summary,
 				temp    = forecast.currently.temperature,
 				aparente_temp = forecast.currently.apparentTemperature,
 				rocio = forecast.currently.dewPoint,
-				nubes = forecast.currently.cloudCover,
+				nubes = forecast.currently.cloudCover * 100,
 				uv = 	forecast.currently.uvIndex,
 				visibilidad = forecast.currently.visibility,
 				ozono = forecast.currently.ozone;
+				probabilidad_lluvia=forecast.currently.precipProbability * 100;
+				presion=forecast.currently.pressure;
 		
 		$("#tiempo").append(
 					'<div class="shade-'+ skicons +'"><div class="card-container"><div><div class="front card"></div>' +
 					"<div class='graphic_tiempo'><canvas class=" + skicons + "></canvas></div>" +
 					//"<div><b>Día</b>: " + date.toLocaleDateString() + "</div>" +
+					"<div><b>Prob. Lluvia</b>: " + probabilidad_lluvia + "</div>" +
 					"<div><b>Temperatura</b>: " + temp + "</div>" +
 					"<div><b>Temperatura aparente</b>: " + aparente_temp + "</div>" +
-					"<div><b>Humedad</b>: " + humidity *100+ "%</div>" +
+					"<div><b>Humedad</b>: " + humidity + "%</div>" +
 					"<div><b>Rocio</b>: " + rocio + "</div>" +
-					"<div><b>Viento</b>: " + viento + "</div>" +
-					"<div><b>Nubes</b>: " + nubes + "</div>" +
+					"<div><b>Viento</b>: " + viento + " m/s</div>" +
+					"<div><b>Nubes</b>: " + nubes + "%</div>" +
+					"<div><b>Presión</b>: " + presion + " Hectopascals</div>" +
 					"<div><b>índice UV</b>: " + uv + "</div>" +
-					"<div><b>Visibilidad</b>: " + visibilidad + "</div>" +
+					"<div><b>Visibilidad</b>: " + visibilidad + " Km</div>" +
 					"<div><b>Ozono</b>: " + ozono + "</div>" +
 					'</div></div><div class="back card">' 
 					
@@ -284,7 +288,6 @@ function skycons() {
             icons.set(elements[e], weatherType);
         }
     }
-     
     // animate the icons
     icons.play();
 }
@@ -296,9 +299,6 @@ function skycons() {
 
 
 ////FUNCION Y VARIABLES PARA METRO VALENCIA
-
-
-
 function calcularhorario() {
 	var f=new Date();
 	hora=f.getHours()+":"+f.getMinutes(); 
@@ -334,7 +334,6 @@ function calcularhorario() {
         			hora_metro.push(texto_bueno[i]);
         		}
 	        }
-	        
 			horas_ahora = hora_metro[0].split(" ");
 			for (var i=0;i< horas_ahora.length;i++){
 				var valor_hora = horas_ahora[i];
@@ -343,9 +342,7 @@ function calcularhorario() {
 					if ( num_hora  < numero){
 						horario_metro.push(horas_ahora[i]);
 					}
-
 				}
-
 			};
 			horas_siguiente = hora_metro[1].split(" ");
 			for (var i=0;i< horas_siguiente.length;i++){
@@ -360,16 +357,19 @@ function calcularhorario() {
 			for (var i=0; i< horario_metro.length;i++){
 				texto_horario = texto_horario +" "+horario_metro[i];
 			}
-			$("#metro").append(
+			if (hora_busqueda_fin > 23,30){
+				$("#metro").append(
+				"<div '><img style='right=100px;' src='/svg/train-travelling-on-railroad.svg' height='30'/> Ya no hay metros disponibles hasta las 5:30</div>"
+				);
+			}else {
+				$("#metro").append(
 					"<div '><img style='right=100px;' src='/svg/train-travelling-on-railroad.svg' height='30'/>  " + texto_horario + "</div>"
-					 );
+				);};
 	     });
 	}, function (reason) {
 	    console.error(reason);
 	})
-	
-return hora_metro;
-	
+return texto_horario;
 }
 
 
