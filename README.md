@@ -34,7 +34,7 @@ sudo npm install -g nodewebkit
 
 npm install -g generator-node-webkit
  
- npm install -g yo
+npm install -g yo
 
 //Si tenemos problemas al instalar el npm o al realizar cualquier tipo de instalacin posterior deberemos eliminarlo y hacer :
 
@@ -52,7 +52,7 @@ sudo su
 
 2º Generamos un archivo package.json que contendra :
 
-{
+'''{
   "name": "NOMBREDELPROYECTO",
   "version": "0.0.1",
   "main": "./html/index.html", // directorio donde este nuestro html
@@ -61,7 +61,7 @@ sudo su
     "width": 800,
     "height": 500
   }
-}
+}'''
 
 
 3º Creamos dentro de esta primera carpeta una nueva que se llamara  PROYECTO_build, que contendra 
@@ -74,7 +74,7 @@ sudo su
 
 5º Generamos en la carteta PROYECTO_build el archivo package.json nuevo :
 
-{
+'''{
 "name": "testproject-build",
 "version": "0.0.1",
 "description": "Building testproject",
@@ -84,12 +84,12 @@ sudo su
 "grunt": "~0.4.2",
 "grunt-node-webkit-builder": "~0.1.14"
 }
-}
+}'''
 
 
 6º Generamos también el contenido de Grunt.js 
 
-module.exports = function(grunt) {
+'''module.exports = function(grunt) {
 grunt.initConfig({
 pkg: grunt.file.readJSON('src/package.json'),
 nodewebkit: {
@@ -103,7 +103,7 @@ linux64: true
 },
 src: './src/**/*'
 },
-});
+});'''
 
 grunt.loadNpmTasks(‘grunt-node-webkit-builder’);
 
