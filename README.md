@@ -39,8 +39,10 @@ npm install -g yo
 
 sudo apt-get install npm
 
+----------------------------------------------------------------------------------------
 
-Como crear una aplicacion en NODEWEBKIT
+## CREACIÓN DE APP CON NODE WEBKIT
+
 0º Accedemos como root
 
 ```
