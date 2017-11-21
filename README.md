@@ -61,7 +61,8 @@ sudo su
     "width": 800,
     "height": 500
   }
-}```
+}
+```
 
 
 3º Creamos dentro de esta primera carpeta una nueva que se llamara  PROYECTO_build, que contendra 
@@ -84,7 +85,8 @@ sudo su
 "grunt": "~0.4.2",
 "grunt-node-webkit-builder": "~0.1.14"
 }
-}```
+}
+```
 
 
 6º Generamos también el contenido de Grunt.js 
@@ -103,12 +105,13 @@ linux64: true
 },
 src: './src/**/*'
 },
-});```
+});
 
 grunt.loadNpmTasks(‘grunt-node-webkit-builder’);
 
 grunt.registerTask(‘default’, [‘nodewebkit’]);
 };
+```
 
 7º Entramos dentro de la carpeta PROYECTO_build y instalamos npm
 
