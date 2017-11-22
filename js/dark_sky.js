@@ -22,7 +22,7 @@ navigator.geolocation.getCurrentPosition(function(position) {
     $("#tiempo").empty(); // ELIMINAMOS EL CONTENIDO PARA LA RECARGA
     $("#forecast").empty(); // BORRAMOS EL CONTENIDO PARA LA RECARGA
  	 weatherReport(lat,long); 
-
+ 	 calcularhorario();
   },500000);//Set interval para que se refresque cada 15 min
   
 });
@@ -209,12 +209,12 @@ function weatherReport(lat,long) {
 				    "<div class='contenedor_datos'>"+
 					'<divclass="shade-'+ skicons +'">' +
 					"<div class='graphic'><canvas class=" + skicons + "></canvas></div>" +
-					"<div style='float:left;margin-left:5px;'><img src='./svg/calendar.svg' height='30'/>  " + date.toLocaleDateString() + "</div>" +
-					"<div style='float:left;margin-left:5px;'><img src='./svg/temperatura_basic.svg' height='30'/>  " + temp + "</div>" +
-					"<div style='float:left;margin-left:5px;'><img src='./svg/temperature_cold.svg' height='30'/> " + tempMin + "</div>" +
-					"<div style='float:left;margin-left:5px;'><img src='./svg/temperature_hot.svg' height='30'/>  " + tempMax + "</div>" +
-					"<div style='float:left;margin-left:5px;'><img src='./svg/humidity.svg' height='30'/> " + humidity + "</div>" +
-					"<div style='float:left;margin-left:5px;'><img src='./svg/windy.svg' height='30'/>  " + wind + "</div>" +
+					"<div style='float:left;margin-left:5px;'><img src='/svg/calendar.svg' height='30'/>  " + date.toLocaleDateString() + "</div>" +
+					"<div style='float:left;margin-left:5px;'><img src='/svg/temperatura_basic.svg' height='30'/>  " + temp + "</div>" +
+					"<div style='float:left;margin-left:5px;'><img src='/svg/temperature_cold.svg' height='30'/> " + tempMin + "</div>" +
+					"<div style='float:left;margin-left:5px;'><img src='/svg/temperature_hot.svg' height='30'/>  " + tempMax + "</div>" +
+					"<div style='float:left;margin-left:5px;'><img src='/svg/humidity.svg' height='30'/> " + humidity + "</div>" +
+					"<div style='float:left;margin-left:5px;'><img src='/svg/windy.svg' height='30'/>  " + wind + "</div>" +
 					"</div>"+
 					'</div></div><div class="back card">' 
 					
@@ -325,6 +325,8 @@ function calcularhorario() {
 	        };
 	        for (var i = 0; i < texto_bueno.length;  i++){
 	        	var hora = texto_bueno[i];
+	        	var hora_final = texto_bueno[texto_bueno.length-1];
+	        	var hora_inicio = texto_bueno[2];
         		var incluye =hora.includes(hora_busqueda);
         		if (incluye == true){
         			hora_metro.push(texto_bueno[i]);
@@ -334,12 +336,15 @@ function calcularhorario() {
         			hora_metro.push(texto_bueno[i]);
         		}
 	        }
+	        
 			horas_ahora = hora_metro[0].split(" ");
 			for (var i=0;i< horas_ahora.length;i++){
 				var valor_hora = horas_ahora[i];
+
 				if(valor_hora != "" && valor_hora != hora_busqueda_fin ){
 					var numero = valor_hora.replace(':',',');
 					if ( num_hora  < numero){
+						
 						horario_metro.push(horas_ahora[i]);
 					}
 				}
@@ -357,21 +362,43 @@ function calcularhorario() {
 			for (var i=0; i< horario_metro.length;i++){
 				texto_horario = texto_horario +" "+horario_metro[i];
 			}
-			if (hora_busqueda_fin > 23,30){
+			//Obtener el último metro disponible
+			var hora_comparar =f.getHours()+"."+f.getMinutes(); 
+			var hora_final = hora_final.split(" ");
+			var hora_final_horas = [];
+			for(var i = 0;i< hora_final.length;i++){
+				if (hora_final[i] != ""){
+					hora_final_horas.push(hora_final[i])
+				}
+			};
+			//Obtener el primer metro del día
+			var hora_inicio = hora_inicio.split(" ");
+			var hora_inicio_horas = [];
+			for(var i = 0;i< hora_inicio.length;i++){
+				if (hora_inicio[i] != ""){
+					hora_inicio_horas.push(hora_inicio[i])
+				}
+			};
+			var hora_inicio_buena = hora_inicio[2];
+			var hora_final = hora_final_horas[hora_final_horas.length-1];
+			var hora_final_verdad = hora_final.replace(':','.');
+			
+			if (hora_comparar > hora_final_verdad){
 				$("#metro").append(
-				"<div '><img style='right=100px;' src='./svg/train-travelling-on-railroad.svg' height='30'/> Ya no hay metros disponibles hasta las 5:30</div>"
+					"<div '><img style='right=100px;' src='/svg/train-travelling-on-railroad.svg' height='30'/> Ya no hay metros disponibles hasta las " + hora_inicio_buena + "</div>"
 				);
 			}else {
 				$("#metro").append(
-					"<div '><img style='right=100px;' src='./svg/train-travelling-on-railroad.svg' height='30'/>  " + texto_horario + "</div>"
+					"<div '><img style='right=100px;' src='/svg/train-travelling-on-railroad.svg' height='30'/> Horario : " + texto_horario + "</div>"
 				);};
 	     });
 	}, function (reason) {
 	    console.error(reason);
 	})
+	
 return texto_horario;
+	
 }
-
 
 function getPageText(pageNum, PDFDocumentInstance) {
     return new Promise(function (resolve, reject) {
@@ -388,5 +415,15 @@ function getPageText(pageNum, PDFDocumentInstance) {
         });
     });
 }
+
+
+
+//////////////////////GOOGLE CALENDAR
+
+
+//GET https://www.googleapis.com/calendar/v3/calendars/m50vfeum9fh2k4464qcc72j014@group.calendar.google.com/events
+
+
+
 
 
