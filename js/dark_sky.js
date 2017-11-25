@@ -6,7 +6,7 @@ var texto_bueno = ['Horario Metro']
 var datos_horario = "Horario :";
 
 //METRO VALENCIA
-
+// LAT LONG : 39.573050699999996 -0.32989759999999996
 
 //PETICION PDF
 //http://www.metrovalencia.es/horarios_pdf.php?origen=3&destino=11&fecha=12/11/2017&hini=00:00&hfin=23:59
@@ -21,11 +21,13 @@ navigator.geolocation.getCurrentPosition(function(position) {
   setInterval(function(){ 
     $("#tiempo").empty(); // ELIMINAMOS EL CONTENIDO PARA LA RECARGA
     $("#forecast").empty(); // BORRAMOS EL CONTENIDO PARA LA RECARGA
+    $("#metro").empty();
  	 weatherReport(lat,long); 
  	 calcularhorario();
   },500000);//Set interval para que se refresque cada 15 min
   
 });
+
 
 
 
@@ -195,9 +197,10 @@ function weatherReport(lat,long) {
 					skicons  = forecast.daily.data[i].icon,
 					time     = forecast.daily.data[i].time,
 					wind     = forecast.daily.data[i].windSpeed,
-					humidity = forecast.daily.data[i].humidity,
+					humidity = Math.round(forecast.daily.data[i].humidity * 100,1),
 					summary  = forecast.daily.data[i].summary,
-					temp    = Math.round(forecast.hourly.data[i].temperature),
+	    probabilidad_lluvia  = Math.round(forecast.daily.data[i].precipProbability * 100,1),
+					//temp    = Math.round(forecast.hourly.data[i].temperature),
 					tempMin = Math.round(forecast.daily.data[i].temperatureLow),
 					tempMax = Math.round(forecast.daily.data[i].temperatureMax);
 
@@ -210,10 +213,11 @@ function weatherReport(lat,long) {
 					'<divclass="shade-'+ skicons +'">' +
 					"<div class='graphic'><canvas class=" + skicons + "></canvas></div>" +
 					"<div style='float:left;margin-left:5px;'><img src='/svg/calendar.svg' height='30'/>  " + date.toLocaleDateString() + "</div>" +
-					"<div style='float:left;margin-left:5px;'><img src='/svg/temperatura_basic.svg' height='30'/>  " + temp + "</div>" +
+					//"<div style='float:left;margin-left:5px;'><img src='/svg/temperatura_basic.svg' height='30'/>  " + temp + "</div>" +
 					"<div style='float:left;margin-left:5px;'><img src='/svg/temperature_cold.svg' height='30'/> " + tempMin + "</div>" +
 					"<div style='float:left;margin-left:5px;'><img src='/svg/temperature_hot.svg' height='30'/>  " + tempMax + "</div>" +
-					"<div style='float:left;margin-left:5px;'><img src='/svg/humidity.svg' height='30'/> " + humidity + "</div>" +
+					"<div style='float:left;margin-left:5px;'><img src='/svg/humidity.svg' height='30'/> " + humidity + "%</div>" +
+					"<div style='float:left;margin-left:5px;'><img src='/svg/rain.svg' height='30'/>  " + probabilidad_lluvia + "%</div>" +
 					"<div style='float:left;margin-left:5px;'><img src='/svg/windy.svg' height='30'/>  " + wind + "</div>" +
 					"</div>"+
 					'</div></div><div class="back card">' 
@@ -382,7 +386,7 @@ function calcularhorario() {
 			var hora_inicio_buena = hora_inicio[2];
 			var hora_final = hora_final_horas[hora_final_horas.length-1];
 			var hora_final_verdad = hora_final.replace(':','.');
-			
+			console.log("HORA REAL : "+hora_comparar+" | HORA ULTIMO METRO : "+hora_final_verdad)
 			if (hora_comparar > hora_final_verdad){
 				$("#metro").append(
 					"<div '><img style='right=100px;' src='/svg/train-travelling-on-railroad.svg' height='30'/> Ya no hay metros disponibles hasta las " + hora_inicio_buena + "</div>"
