@@ -129,3 +129,8 @@ npm install
 ```
 grunt --force
 ```
+
+
+*CAMERA BUILDING
+
+hacer fotografias portables a bbdd https://www.youtube.com/watch?v=r5pXWky_3T0
