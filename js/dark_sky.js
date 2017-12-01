@@ -17,20 +17,21 @@ navigator.geolocation.getCurrentPosition(function(position) {
   var lat= position.coords.latitude;
   var long= position.coords.longitude;
   weatherReport(lat,long); 
-  calcularhorario();
+  var texto_horario = calcularhorario();
+  console.log(texto_horario)
   setInterval(function(){ 
     $("#tiempo").empty(); // ELIMINAMOS EL CONTENIDO PARA LA RECARGA
     $("#forecast").empty(); // BORRAMOS EL CONTENIDO PARA LA RECARGA
     $("#metro").empty();
  	 weatherReport(lat,long); 
- 	 calcularhorario();
+ 	 var texto_horario = calcularhorario();
   },500000);//Set interval para que se refresque cada 15 min
   
 });
 
 
 
-
+//----------------------------------------------------------------------------
 //RELOJ DIGITAL
 $(document).ready(function() {
 // Create two variable with the names of the months and days in an array
@@ -66,17 +67,11 @@ setInterval( function() {
     }, 1000);	
 });
 
+//----------------------------------------------------------------------------
 
 
 
-
-
-
-
-
-
-
-
+//----------------------------------------------------------------------------
 //INICIO DE LAS FUNCIONES para el tiempo
 function weatherReport(lat,long) {
 	
@@ -139,7 +134,7 @@ function weatherReport(lat,long) {
 					'<div class="shade-'+ skicons +'"><div class="card-container"><div><div class="front card"></div>' +
 					"<div class='graphic_tiempo'><canvas class=" + skicons + "></canvas></div>" +
 					//"<div><b>Día</b>: " + date.toLocaleDateString() + "</div>" +
-					"<div><b>Prob. Lluvia</b>: " + probabilidad_lluvia + "</div>" +
+					"<div><b>Prob. Lluvia</b>: " + probabilidad_lluvia + "%</div>" +
 					"<div><b>Temperatura</b>: " + temp + "</div>" +
 					"<div><b>Temperatura aparente</b>: " + aparente_temp + "</div>" +
 					"<div><b>Humedad</b>: " + humidity + "%</div>" +
@@ -296,14 +291,17 @@ function skycons() {
     icons.play();
 }
 
+//----------------------------------------------------------------------------
 
 
 
 
-
-
+//----------------------------------------------------------------------------
 ////FUNCION Y VARIABLES PARA METRO VALENCIA
 function calcularhorario() {
+	var horas_siguiente ;
+	var horas_ahora;
+	var hora_metro= [];
 	var f=new Date();
 	hora=f.getHours()+":"+f.getMinutes(); 
 	hora_busqueda=f.getHours()+":";
@@ -332,7 +330,8 @@ function calcularhorario() {
 	        	var hora_final = texto_bueno[texto_bueno.length-1];
 	        	var hora_inicio = texto_bueno[2];
         		var incluye =hora.includes(hora_busqueda);
-        		if (incluye == true){
+        		var incluye_texto =hora.includes("Origen");
+        		if (incluye == true && incluye_texto == false){
         			hora_metro.push(texto_bueno[i]);
         			var j = i + 1;
         		}
@@ -340,31 +339,35 @@ function calcularhorario() {
         			hora_metro.push(texto_bueno[i]);
         		}
 	        }
-	        
 			horas_ahora = hora_metro[0].split(" ");
+			console.log("HORAS METRO"+horas_ahora)
 			for (var i=0;i< horas_ahora.length;i++){
 				var valor_hora = horas_ahora[i];
 
 				if(valor_hora != "" && valor_hora != hora_busqueda_fin ){
 					var numero = valor_hora.replace(':',',');
-					if ( num_hora  < numero){
-						
+					if ( num_hora  < numero){	
 						horario_metro.push(horas_ahora[i]);
 					}
 				}
 			};
-			horas_siguiente = hora_metro[1].split(" ");
-			for (var i=0;i< horas_siguiente.length;i++){
-				var valor_hora = horas_siguiente[i];
-				if(valor_hora != "" && valor_hora != hora_busqueda_fin_siguiente ){
-					var numero = valor_hora.replace(':',',');
-					if ( num_hora  < numero){
-						horario_metro.push(horas_siguiente[i]);
+			console.log(hora_metro.length)
+			if (hora_metro.length > 1){
+				horas_siguiente = hora_metro[1].split(" ");
+				console.log(horas_siguiente)
+				for (var i=0;i< horas_siguiente.length;i++){
+					var valor_hora = horas_siguiente[i];
+					if(valor_hora != "" && valor_hora != hora_busqueda_fin_siguiente ){
+						var numero = valor_hora.replace(':',',');
+						if ( num_hora  < numero){
+							horario_metro.push(horas_siguiente[i]);
+						}
 					}
-				}
+				};
 			};
-			for (var i=0; i< horario_metro.length;i++){
+			for (var i=0; i < horario_metro.length;i++){
 				texto_horario = texto_horario +" "+horario_metro[i];
+				//console.log("HORA "+num_hora+" TEXTO "+texto_horario)
 			}
 			//Obtener el último metro disponible
 			var hora_comparar =f.getHours()+"."+f.getMinutes(); 
@@ -420,12 +423,21 @@ function getPageText(pageNum, PDFDocumentInstance) {
     });
 }
 
-
+//----------------------------------------------------------------------------
 
 //////////////////////GOOGLE CALENDAR
 
+//GET https://www.googleapis.com/calendar/v3/users/me/calendarList?maxResults=50&key=AIzaSyD_zoIlbCLq_ZW9gjPa2Uq6nn18sX2e6Zo
+//GET https://www.googleapis.com/calendar/v3/calendars/m50vfeum9fh2k4464qcc72j014%40group.calendar.google.com/events?key=AIzaSyDFNYWM5Xk33euOTjB88ztXM0ryYktJQLU
 
-//GET https://www.googleapis.com/calendar/v3/calendars/m50vfeum9fh2k4464qcc72j014@group.calendar.google.com/events
+
+// date variables
+
+//https://www.googleapis.com/calendar/v3/calendars/m50vfeum9fh2k4464qcc72j014%40group.calendar.google.com/events?key=AIzaSyDFNYWM5Xk33euOTjB88ztXM0ryYktJQLU
+
+$.getJSON("https://www.googleapis.com/calendar/v3/calendars/m50vfeum9fh2k4464qcc72j014%40group.calendar.google.com/events?key=AIzaSyDFNYWM5Xk33euOTjB88ztXM0ryYktJQLU", function(respuestaSolicitud){
+   console.log(respuestaSolicitud);
+})
 
 
 
