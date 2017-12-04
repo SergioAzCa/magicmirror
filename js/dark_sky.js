@@ -17,14 +17,17 @@ navigator.geolocation.getCurrentPosition(function(position) {
   var lat= position.coords.latitude;
   var long= position.coords.longitude;
   weatherReport(lat,long); 
-  var texto_horario = calcularhorario();
-  console.log(texto_horario)
+  google_calendar();
+  calcularhorario();
   setInterval(function(){ 
     $("#tiempo").empty(); // ELIMINAMOS EL CONTENIDO PARA LA RECARGA
     $("#forecast").empty(); // BORRAMOS EL CONTENIDO PARA LA RECARGA
     $("#metro").empty();
- 	 weatherReport(lat,long); 
- 	 var texto_horario = calcularhorario();
+    $("#calendar").empty();
+    $("#cumple").empty();
+    google_calendar();
+ 	weatherReport(lat,long); 
+ 	calcularhorario();
   },500000);//Set interval para que se refresque cada 15 min
   
 });
@@ -118,7 +121,7 @@ function weatherReport(lat,long) {
 				skicons     = forecast.currently.icon,
 				tiempo     = forecast.currently.time,
 				viento     = forecast.currently.windSpeed,
-				humidity = forecast.currently.humidity * 100,
+				humidity = Math.round(forecast.currently.humidity * 100,1),
 				summary  = forecast.currently.summary,
 				temp    = forecast.currently.temperature,
 				aparente_temp = forecast.currently.apparentTemperature,
@@ -127,7 +130,7 @@ function weatherReport(lat,long) {
 				uv = 	forecast.currently.uvIndex,
 				visibilidad = forecast.currently.visibility,
 				ozono = forecast.currently.ozone;
-				probabilidad_lluvia=forecast.currently.precipProbability * 100;
+				probabilidad_lluvia=Math.round(forecast.currently.precipProbability * 100,1);
 				presion=forecast.currently.pressure;
 		
 		$("#tiempo").append(
@@ -145,45 +148,8 @@ function weatherReport(lat,long) {
 					"<div><b>índice UV</b>: " + uv + "</div>" +
 					"<div><b>Visibilidad</b>: " + visibilidad + " Km</div>" +
 					"<div><b>Ozono</b>: " + ozono + "</div>" +
-					'</div></div><div class="back card">' 
-					
-			);
-
-
-		// Bucle para las horas
-		for(var j = 0, k = forecast.hourly.data.length; j < k; j++) {
-			var hourly_date    = new Date(forecast.hourly.data[j].time * 1000),
-					hourly_day     = days[hourly_date.getDay()],
-					hourly_temp    = forecast.hourly.data[j].temperature;
-
-			// Ponemos los valores de 24 horas en los array vacios
-			switch(hourly_day) {
-				case 'Sunday':
-					sunday.push(hourly_temp);
-					break;
-				case 'Monday':
-					monday.push(hourly_temp);
-					break;
-				case 'Tuesday':
-					tuesday.push(hourly_temp);
-					break;
-				case 'Wednesday':
-					wednesday.push(hourly_temp);
-					break;
-				case 'Thursday':
-					thursday.push(hourly_temp);
-					break;
-				case 'Friday':
-					friday.push(hourly_temp);
-					break;
-				case 'Saturday':
-					saturday.push(hourly_temp);
-					break;
-				default: console.log(hourly_date.toLocaleTimeString());
-					break;
-			}
-		}
-
+					'</div></div><div class="back card">' 	
+		);
 		// Bucle para los días
 		for(var i = 0, l = forecast.daily.data.length; i < l - 1; i++) {
 
@@ -200,51 +166,22 @@ function weatherReport(lat,long) {
 					tempMax = Math.round(forecast.daily.data[i].temperatureMax);
 
 
-
-			// Append Markup for each Forecast of the 7 day week
-			
-			$("#forecast").append(
-				    "<div class='contenedor_datos'>"+
-					'<divclass="shade-'+ skicons +'">' +
-					"<div class='graphic'><canvas class=" + skicons + "></canvas></div>" +
-					"<div style='float:left;margin-left:5px;'><img src='/svg/calendar.svg' height='30'/>  " + date.toLocaleDateString() + "</div>" +
-					//"<div style='float:left;margin-left:5px;'><img src='/svg/temperatura_basic.svg' height='30'/>  " + temp + "</div>" +
-					"<div style='float:left;margin-left:5px;'><img src='/svg/temperature_cold.svg' height='30'/> " + tempMin + "</div>" +
-					"<div style='float:left;margin-left:5px;'><img src='/svg/temperature_hot.svg' height='30'/>  " + tempMax + "</div>" +
-					"<div style='float:left;margin-left:5px;'><img src='/svg/humidity.svg' height='30'/> " + humidity + "%</div>" +
-					"<div style='float:left;margin-left:5px;'><img src='/svg/rain.svg' height='30'/>  " + probabilidad_lluvia + "%</div>" +
-					"<div style='float:left;margin-left:5px;'><img src='/svg/windy.svg' height='30'/>  " + wind + "</div>" +
-					"</div>"+
-					'</div></div><div class="back card">' 
-					
-			);
-
+		$("#forecast").append(
+			    "<div class='contenedor_datos'>"+
+				'<divclass="shade-'+ skicons +'">' +
+				"<div class='graphic'><canvas class=" + skicons + "></canvas></div>" +
+				"<div style='float:left;margin-left:5px;'><img src='/svg/calendar.svg' height='30'/>  " + date.toLocaleDateString() + "</div>" +
+				//"<div style='float:left;margin-left:5px;'><img src='/svg/temperatura_basic.svg' height='30'/>  " + temp + "</div>" +
+				"<div style='float:left;margin-left:5px;'><img src='/svg/temperature_cold.svg' height='30'/> " + tempMin + "</div>" +
+				"<div style='float:left;margin-left:5px;'><img src='/svg/temperature_hot.svg' height='30'/>  " + tempMax + "</div>" +
+				"<div style='float:left;margin-left:5px;'><img src='/svg/humidity.svg' height='30'/> " + humidity + "%</div>" +
+				"<div style='float:left;margin-left:5px;'><img src='/svg/rain.svg' height='30'/>  " + probabilidad_lluvia + "%</div>" +
+				"<div style='float:left;margin-left:5px;'><img src='/svg/windy.svg' height='30'/>  " + wind + "</div>" +
+				"</div>"+
+				'</div></div><div class="back card">' 	
+		);
 			// Daily forecast report for each day of the week
-			switch(day) {
-				case 'Sunday':
-					hourlyReport(sunday, days[0]);
-					break;
-				case 'Monday':
-					hourlyReport(monday, days[1]);
-					break;
-				case 'Tuesday':
-					hourlyReport(tuesday, days[2]);
-					break;
-				case 'Wednesday':
-					hourlyReport(wednesday, days[3]);
-					break;
-				case 'Thursday':
-					hourlyReport(thursday, days[4]);
-					break;
-				case 'Friday':
-					hourlyReport(friday, days[5]);
-					break;
-				case 'Saturday':
-					hourlyReport(saturday, days[6]);
-					break;
-			}
 		}
-		
 		skycons(); //Añadimos los iconos
 	});
 }
@@ -340,7 +277,7 @@ function calcularhorario() {
         		}
 	        }
 			horas_ahora = hora_metro[0].split(" ");
-			console.log("HORAS METRO"+horas_ahora)
+			//console.log("HORAS METRO"+horas_ahora)
 			for (var i=0;i< horas_ahora.length;i++){
 				var valor_hora = horas_ahora[i];
 
@@ -351,10 +288,10 @@ function calcularhorario() {
 					}
 				}
 			};
-			console.log(hora_metro.length)
+			//console.log(hora_metro.length)
 			if (hora_metro.length > 1){
 				horas_siguiente = hora_metro[1].split(" ");
-				console.log(horas_siguiente)
+				//console.log(horas_siguiente)
 				for (var i=0;i< horas_siguiente.length;i++){
 					var valor_hora = horas_siguiente[i];
 					if(valor_hora != "" && valor_hora != hora_busqueda_fin_siguiente ){
@@ -390,7 +327,7 @@ function calcularhorario() {
 			var hora_final = hora_final_horas[hora_final_horas.length-1];
 			var hora_final_verdad = hora_final.replace(':','.');
 			console.log("HORA REAL : "+hora_comparar+" | HORA ULTIMO METRO : "+hora_final_verdad)
-			if (hora_comparar > hora_final_verdad){
+			if (hora_comparar > hora_final_verdad || (hora_comparar == 01 || hora_comparar == 02 || hora_comparar == 03 || hora_comparar == 04 || hora_comparar == 05 || hora_comparar == 00) || incluye_texto == true){
 				$("#metro").append(
 					"<div '><img style='right=100px;' src='/svg/train-travelling-on-railroad.svg' height='30'/> Ya no hay metros disponibles hasta las " + hora_inicio_buena + "</div>"
 				);
@@ -404,9 +341,7 @@ function calcularhorario() {
 	})
 	
 return texto_horario;
-	
 }
-
 function getPageText(pageNum, PDFDocumentInstance) {
     return new Promise(function (resolve, reject) {
         PDFDocumentInstance.getPage(pageNum).then(function (pdfPage) {
@@ -429,17 +364,78 @@ function getPageText(pageNum, PDFDocumentInstance) {
 
 //GET https://www.googleapis.com/calendar/v3/users/me/calendarList?maxResults=50&key=AIzaSyD_zoIlbCLq_ZW9gjPa2Uq6nn18sX2e6Zo
 //GET https://www.googleapis.com/calendar/v3/calendars/m50vfeum9fh2k4464qcc72j014%40group.calendar.google.com/events?key=AIzaSyDFNYWM5Xk33euOTjB88ztXM0ryYktJQLU
-
-
-// date variables
-
+//https://www.googleapis.com/calendar/v3/calendars/serazca%40gmail.com/events?timeMax=2017-11-29T10%3A00%3A00-07%3A00&timeMin=2017-01-29T10%3A00%3A00-07%3A00&key=AIzaSyDFNYWM5Xk33euOTjB88ztXM0ryYktJQLU
+//https://www.googleapis.com/calendar/v3/calendars/m50vfeum9fh2k4464qcc72j014%40group.calendar.google.com/events?timeMax=2017-11-29T10%3A00%3A00-07%3A00&timeMin=2017-01-29T10%3A00%3A00-07%3A00&key=AIzaSyDFNYWM5Xk33euOTjB88ztXM0ryYktJQLU
 //https://www.googleapis.com/calendar/v3/calendars/m50vfeum9fh2k4464qcc72j014%40group.calendar.google.com/events?key=AIzaSyDFNYWM5Xk33euOTjB88ztXM0ryYktJQLU
+function google_calendar(){
 
-$.getJSON("https://www.googleapis.com/calendar/v3/calendars/m50vfeum9fh2k4464qcc72j014%40group.calendar.google.com/events?key=AIzaSyDFNYWM5Xk33euOTjB88ztXM0ryYktJQLU", function(respuestaSolicitud){
-   console.log(respuestaSolicitud);
-})
+	var dateObj = new Date();
+	var month = dateObj.getUTCMonth() + 1; //mes de 1 a 12 empieza en 0 de ahi el +1
+	var day = dateObj.getUTCDate();
+	var year = dateObj.getUTCFullYear();
+	fecha_ini = year + "-" + month + "-" + day;
+	dia_siguiente = day + 7;
+	if (dia_siguiente >= 27){
+		var dia_siguiente = "01";
+		if (month == 12){
+			month = "01";
+		}else {
+			month = month + 1
+		}	
+	}else {
+		var dia_siguiente = day + 7;
+	}
+	fecha_fin = year + "-" + month + "-" + dia_siguiente;
+	//request = "https://www.googleapis.com/calendar/v3/calendars/m50vfeum9fh2k4464qcc72j014%40group.calendar.google.com/events?timeMax="+String(fecha_fin)+"T10%3A00%3A00-07%3A00&timeMin="+String(fecha_ini)+"T10%3A00%3A00-07%3A00&key=AIzaSyDFNYWM5Xk33euOTjB88ztXM0ryYktJQLU";
+	//console.log(request)
+	//CALENDARIO CONJUNTO
+	$.getJSON("https://www.googleapis.com/calendar/v3/calendars/m50vfeum9fh2k4464qcc72j014%40group.calendar.google.com/events?timeMax="+String(fecha_fin)+"T10%3A00%3A00-07%3A00&timeMin="+String(fecha_ini)+"T10%3A00%3A00-07%3A00&key=AIzaSyDFNYWM5Xk33euOTjB88ztXM0ryYktJQLU", function(calendar){
+	   //console.log(calendar)
+	   for(var i = 0, l = calendar.items.length; i < l ; i++) {
+	   			
+			evento = calendar.items[i].summary;
+			empieza = calendar.items[i].start.dateTime;
+			var particion_empieza = empieza.split("T");
+			var particion_1 = particion_empieza[0];
+			var hora_empieza = particion_1.split("-");
+			var dia_empieza = hora_empieza[2];
+			var mes_empieza = hora_empieza[1];
+			var anyo_empieza = hora_empieza[0];
+			var hora_empieza_real = dia_empieza+"-"+mes_empieza+"-"+anyo_empieza;
+			acaba = calendar.items[i].end.dateTime;
+			var particion_acaba = acaba.split("T");
+			var particion_2 = particion_acaba[0];
+			var hora_acaba = particion_2.split("-");
+			var dia_acaba = hora_acaba[2];
+			var mes_acaba = hora_acaba[1];
+			var anyo_acaba = hora_acaba[0];
+			var hora_acaba_real = dia_acaba+"-"+mes_acaba+"-"+anyo_acaba;
+			if (hora_empieza_real == hora_acaba_real){
+				hora_acaba_real ="";
+			};
 
+			$("#calendar").append(
+			    "<div class='contenedor_calendar'>"+
+				"<div style='float:left;margin-left:5px;'><img src='/svg/calendar_google.svg' height='30'/>  " + evento + "</div>" +
+				"<div style='float:left;margin-left:5px;'> " + hora_empieza_real + "</div>" +
+				"<div style='float:left;margin-left:5px;'> " + hora_acaba_real + "</div>" +
+				"</div>"
+			);
+	   };
+	});
+	//CALENDARIO CUMPLEAÑOS
+	$.getJSON("https://www.googleapis.com/calendar/v3/calendars/#contacts@group.v.calendar.google.com/events?timeMax="+String(fecha_fin)+"T10%3A00%3A00-07%3A00&timeMin="+String(fecha_ini)+"T10%3A00%3A00-07%3A00&key=AIzaSyDFNYWM5Xk33euOTjB88ztXM0ryYktJQLU", function(calendar){
+	   //console.log(calendar);
+	   for(var i = 0, l = calendar.items.length; i < l ; i++) {
+   			evento = calendar.items[i].summary;
+   			$("#cumples").append(
+				    "<div class='contenedor_cumpleaños'>"+
+					"<div style='float:left;margin-left:5px;'><img src='/svg/calendar_google.svg' height='30'/>  " + evento + "</div>" +
+					"</div>"
+			);
+	   };
+	});
 
-
+}
 
 
