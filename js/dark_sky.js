@@ -4,19 +4,18 @@ var hora_metro = [];
 var hora_metro_prox = ['Proxima hora'];
 var texto_bueno = ['Horario Metro']
 var datos_horario = "Horario :";
-
+var lat ;
+var long;
 //METRO VALENCIA
 // LAT LONG : 39.573050699999996 -0.32989759999999996
 
 //PETICION PDF
 //http://www.metrovalencia.es/horarios_pdf.php?origen=3&destino=11&fecha=12/11/2017&hini=00:00&hfin=23:59
 
-//Código para la geolocalización para la posición del tiempo
-navigator.geolocation.getCurrentPosition(function(position) {
-  console.log(position.coords.latitude, position.coords.longitude);
-  var lat= position.coords.latitude;
-  var long= position.coords.longitude;
-  weatherReport(lat,long); 
+ //lat,long= lat_long();
+ //// weatherReport(lat,long); 
+
+  weatherReport(39.573050699999996,-0.32989759999999996); //CUANDO ESTE LA RASPI ACTIVA DESCOMENTAR ARRIBA
   google_calendar();
   calcularhorario();
   setInterval(function(){ 
@@ -30,7 +29,7 @@ navigator.geolocation.getCurrentPosition(function(position) {
  	calcularhorario();
   },500000);//Set interval para que se refresque cada 15 min
   
-});
+
 
 
 
@@ -436,6 +435,28 @@ function google_calendar(){
 	   };
 	});
 
+}
+
+
+//////////////AJAX
+
+function lat_long(){
+	$.ajax({ 
+		url:   'lat_long.php',
+		type:   'post',
+		async: false,
+		success:  function (response) {
+			//console.log(response)
+			var resultado = response.split('"');
+			var resultado1 = resultado[1].split('_');
+			lat = resultado1[0];
+			long = resultado1[1];
+			
+		}
+	}).done(function(){
+		return lat,long;
+	});
+return lat,long;
 }
 
 
