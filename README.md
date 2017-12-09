@@ -137,6 +137,8 @@ hacer fotografias portables a bbdd https://www.youtube.com/watch?v=r5pXWky_3T0
 
 Para una simple fotografía  - raspistilll -o test.jpg
 
+**Para instalar OPENCV en la pizero lo que haremos es pasar la SD a una pi3 y compilaremos el siguiente código **
+
 *Instalamos OPENCV*
 ```
 1) sudo apt-get update
