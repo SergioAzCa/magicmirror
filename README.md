@@ -146,7 +146,7 @@ Para una simple fotografía  - raspistilll -o test.jpg
 2) Pasamos con FILEZILLA a la raspberry PI ZERO W  y creamos una carpeta en /home/pi llamada opencv
 ```
 
-### Desde consola empezamos a instalar librerias, **recordar actualizar todo a la última version 
+### Desde consola empezamos a instalar librerias, recordar actualizar todo a la última version 
 
 ```
 
