@@ -137,21 +137,67 @@ hacer fotografias portables a bbdd https://www.youtube.com/watch?v=r5pXWky_3T0
 
 Para una simple fotografía  - raspistilll -o test.jpg
 
-**Para instalar OPENCV en la pizero lo que haremos es pasar la SD a una pi3 y compilaremos el siguiente código **
 
-*Instalamos OPENCV*
+
+#Compilación de  OPENCV
 ```
-1) sudo apt-get update
+1) Descargamos OPENCV de la web : https://opencv.org/releases.html
 
-2) sudo apt-get upgrade
-
-3) sudo apt-get install build-essential
-
-4) sudo apt-get install cmake git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev
-
-5) sudo apt-get install python-dev python-numpy libtbb2 libtbb-dev libjpeg-dev libpng-dev libtiff-dev libjasper-dev libdc1394-22-dev
-
-6) sudo apt-get install python-opencv
-
-7) sudo apt-get install python-matplotlib
+2) Pasamos con FILEZILLA a la raspberry PI ZERO W  y creamos una carpeta en /home/pi llamada opencv
 ```
+
+#Desde consola empezamos a instalar librerias, **recordar actualizar todo a la última version 
+
+```
+
+1) sudo apt-get -y install libopencv-dev build-essential cmake git libgtk2.0-dev pkg-config
+
+2) sudo apt-get -y install python-dev python-numpy python2.7-dev unzip python3-dev libqt4-dev
+
+3) sudo apt-get -y install libjpeg-dev libpng12-dev libjasper-dev libtiff5-dev
+
+4) sudo apt-get -y install libavcodec-dev libswscale-dev libavformat-dev libv4l-dev libxvidcore-dev libx264-dev libdc1394-22 bdc1394-22-dev
+
+5) sudo apt-get -y install libatlas-base-dev gfortran 
+
+6) sudo apt-get -y install  libgstreamer0.10-dev libgstreamer-plugins-base0.10-dev  libmp3lame-dev libopencore-amrnb-dev opencore-amrwb-dev libtheora-dev libvorbis-dev v4l-utils 
+
+```
+
+#Una vez instalados todas las librerias procedemos a la compilación de OPENCV
+
+
+1) Pondremos las siguientes líneas en el archivo opencv-3.3.1/modules/videoio/src/cap_ffmpeg_impl.hpp
+
+```
+#define AV_CODEC_FLAG_GLOBAL_HEADER (1 << 22)
+#define CODEC_FLAG_GLOBAL_HEADER AV_CODEC_FLAG_GLOBAL_HEADER
+#define AVFMT_RAWPICTURE 0x0020
+
+```
+
+2) Crearemos una carpeta dentro del directorio /home/pi/opencv/opencv-3.3.1 que llamaremos build
+
+```
+sudo mkdir build
+
+```
+3) Accedemos a ella y dentro ejecutamos : 
+
+```
+cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local -D WITH_TBB=ON -D WITH_V4L=ON -D WITH_QT=ON -D WITH_OPENGL=ON ..
+```
+
+4) Una vez finalice ejecutaremos :
+```
+sudo make  // Este proceso de compilación puede durar unas 10 horas
+```
+
+5) Instalamos la aplicación y configuramos
+
+```
+sudo make install
+ 
+sudo ldconfig
+```
+
