@@ -139,14 +139,14 @@ Para una simple fotografía  - raspistilll -o test.jpg
 
 
 
-#Compilación de  OPENCV
+# Compilación de  OPENCV
 ```
 1) Descargamos OPENCV de la web : https://opencv.org/releases.html
 
 2) Pasamos con FILEZILLA a la raspberry PI ZERO W  y creamos una carpeta en /home/pi llamada opencv
 ```
 
-#Desde consola empezamos a instalar librerias, **recordar actualizar todo a la última version 
+# Desde consola empezamos a instalar librerias, **recordar actualizar todo a la última version 
 
 ```
 
@@ -164,7 +164,7 @@ Para una simple fotografía  - raspistilll -o test.jpg
 
 ```
 
-#Una vez instalados todas las librerias procedemos a la compilación de OPENCV
+# Una vez instalados todas las librerias procedemos a la compilación de OPENCV
 
 
 1) Pondremos las siguientes líneas en el archivo opencv-3.3.1/modules/videoio/src/cap_ffmpeg_impl.hpp
