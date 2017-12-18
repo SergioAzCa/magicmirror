@@ -142,6 +142,7 @@ Para una simple fotografía  - raspistilll -o test.jpg
 ### Compilación de  OPENCV
 ```
 1) Descargamos OPENCV de la web : https://opencv.org/releases.html
+   También nos descargamos opencv-contrib : https://github.com/opencv/opencv_contrib/releases // Módulos extra
 
 2) Pasamos con FILEZILLA a la raspberry PI ZERO W  y creamos una carpeta en /home/pi llamada opencv
 ```
@@ -154,7 +155,7 @@ Para una simple fotografía  - raspistilll -o test.jpg
 
 2) sudo apt-get -y install python-dev python-numpy python2.7-dev unzip python3-dev libqt4-dev
 
-3) sudo apt-get -y install libjpeg-dev libpng12-dev libjasper-dev libtiff5-dev
+3) sudo apt-get -y install libjpeg-dev libpng12-dev libjasper-dev libtiff5-dev  libopenexr-dev
 
 4) sudo apt-get -y install libavcodec-dev libswscale-dev libavformat-dev libv4l-dev libxvidcore-dev libx264-dev libdc1394-22 bdc1394-22-dev
 
