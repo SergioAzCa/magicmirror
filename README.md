@@ -157,11 +157,11 @@ Para una simple fotografía  - raspistilll -o test.jpg
 
 3) sudo apt-get -y install libjpeg-dev libpng12-dev libjasper-dev libtiff5-dev  libopenexr-dev
 
-4) sudo apt-get -y install libavcodec-dev libswscale-dev libavformat-dev libv4l-dev libxvidcore-dev libx264-dev libdc1394-22 bdc1394-22-dev
+4) sudo apt-get -y install libavcodec-dev libswscale-dev libavformat-dev libv4l-dev libxvidcore-dev libx264-dev libdc1394-22 
 
 5) sudo apt-get -y install libatlas-base-dev gfortran 
 
-6) sudo apt-get -y install  libgstreamer0.10-dev libgstreamer-plugins-base0.10-dev  libmp3lame-dev libopencore-amrnb-dev opencore-amrwb-dev libtheora-dev libvorbis-dev v4l-utils 
+6) sudo apt-get -y install  libgstreamer0.10-dev libgstreamer-plugins-base0.10-dev  libmp3lame-dev libopencore-amrnb-dev  libtheora-dev libvorbis-dev v4l-utils 
 
 ```
 
