@@ -153,7 +153,7 @@ Para una simple fotografía  - raspistilll -o test.jpg
 
 1) sudo apt-get -y install libopencv-dev build-essential cmake git libgtk2.0-dev pkg-config
 
-2) sudo apt-get -y install python-dev python-numpy python2.7-dev unzip python3-dev libqt4-dev
+2) sudo apt-get -y install python-dev python-numpy python2.7-dev unzip python3-dev libqt5-dev
 
 3) sudo apt-get -y install libjpeg-dev libpng12-dev libjasper-dev libtiff5-dev  libopenexr-dev
 
