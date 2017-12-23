@@ -3,13 +3,13 @@ import picamera
 import picamera.array
 
 size = 4
-offset=10
+offset=0
 fn_haar = 'caras_general/caras.xml'
 haar_cascade = cv2.CascadeClassifier(fn_haar)
 (im_width,im_height) = (640,480)
 count = 0
 name=raw_input('Introduce el id :')
-while count < 50:
+while count < 100:
     with picamera.PiCamera() as camera:
         cap=picamera.array.PiRGBArray(camera)
         camera.resolution = ( 640,480)
@@ -28,7 +28,7 @@ while count < 50:
         cv2.imwrite("libreria_de_caras/cara-de-"+str(name) +'.'+ str(count) + ".jpg", gray[y-offset:y+h+offset,x-offset:x+w+offset])
         cv2.imshow('im',im[y-offset:y+h+offset,x-offset:x+w+offset])
         cv2.rectangle(im,(x,y),(x+w,y+h),(0,255,0),3)
-        cv2.putText(im,name,(x-10,y-10),cv2.FONT_HERSHEY_PLAIN,1,(0,255,0))
+        cv2.putText(im,name,(x-10,y-10),cv2.FONT_HERSHEY_PLAIN,1,(161,82,68))
         count += 1
     cv2.imshow('OpenCV',im)
     key = cv2.waitKey(10)

@@ -41,6 +41,6 @@ cv2.imshow('Test',images[0])
 cv2.waitKey(1)
 print labels
 recognizer.train(images, np.array(labels))
-recognizer.save('reconocimiento/reconocimiento.yml')
+recognizer.write('reconocimiento/reconocimiento.yml')
 cv2.destroyAllWindows()
 
