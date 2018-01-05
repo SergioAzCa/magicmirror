@@ -202,3 +202,17 @@ sudo make install
 sudo ldconfig
 ```
 
+# Comunicación externa con RAS PI
+
+```
+sudo iwlist wlan0 scan
+ESSID:"testing"' 
+Para entrar a definir la red :
+sudo nano /etc/wpa_supplicant/wpa_supplicant.conf
+
+network={
+    ssid="testing"
+    psk="testingPassword"
+    key_mgmt=WPA-PSK
+}
+```
