@@ -26,9 +26,9 @@ Para los módulos de Python necesitaremos instalar pip y los diversos módulos q
 
 #Instalamos los siguientes paquetes para instalar NODE:
 
-sudo apt-get install nodejs npm O sudo apt-get install nodejs sudo
+sudo npm install -g npm
 
-npm install -g npm
+sudo apt-get install nodejs 
 
 actualizacmos minimatch con : npm install minimatch@3.0.2 --save-dev  
 
