@@ -28,7 +28,9 @@ Para los módulos de Python necesitaremos instalar pip y los diversos módulos q
 
 sudo apt-get install nodejs npm O sudo apt-get install nodejs sudo
 
-actualizacmos minimatch con : npm install minimatch@3.0.2 --save-dev
+actualizacmos minimatch con : npm install minimatch@3.0.2 --save-dev  
+
+actualizamo graceful npm install -g graceful-fs graceful-fs@latest
 
 sudo npm install -g nodewebkit
 
