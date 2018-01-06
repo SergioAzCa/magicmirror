@@ -25,11 +25,18 @@ Para los módulos de Python necesitaremos instalar pip y los diversos módulos q
 **seguir este tutorial : https://www.1and1.es/digitalguide/servidores/configuracion/como-asignar-una-ip-fija-a-raspberry-pi/**
 
 #Instalamos los siguientes paquetes para instalar NODE:
+```
+sudo apt-get update
+sudo apt-get install build-essential libssl-dev
 
-sudo npm install -g npm
+curl https://raw.githubusercontent.com/creationix/nvm/v0.30.2/install.sh | bash
 
-sudo apt-get install nodejs 
+source ~/.profile
 
+nvm ls-remote
+
+nvm install XXXX VERSION
+```
 actualizacmos minimatch con : npm install minimatch@3.0.2 --save-dev  
 
 actualizamo graceful npm install -g graceful-fs graceful-fs@latest
