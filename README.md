@@ -36,6 +36,8 @@ source ~/.profile
 nvm ls-remote
 
 nvm install XXXX VERSION
+
+npm install -g grunt-cli
 ```
 actualizacmos minimatch con : npm install minimatch@3.0.2 --save-dev  
 
