@@ -73,7 +73,7 @@ sudo su
 {
   "name": "NOMBREDELPROYECTO",
   "version": "0.0.1",
-  "main": "./html/index.html", // directorio donde este nuestro html
+  "main": "./html/index.html",
   "window": {
     "toolbar": false,
     "width": 800,
@@ -127,9 +127,9 @@ src: './src/**/*'
 },
 });
 
-grunt.loadNpmTasks(‘grunt-node-webkit-builder’);
+grunt.loadNpmTasks('grunt-node-webkit-builder');
 
-grunt.registerTask(‘default’, [‘nodewebkit’]);
+grunt.registerTask('default', ['nodewebkit']);
 };
 ```
 
