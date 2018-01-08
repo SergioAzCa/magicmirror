@@ -167,15 +167,20 @@ function weatherReport(lat,long) {
 
 		$("#forecast").append(
 			    "<div class='contenedor_datos'>"+
-				'<divclass="shade-'+ skicons +'">' +
+				'<div class="shade-'+ skicons +'">' +
+				"<div class='contCalend'><img src='svg/calendar.svg' height='30'/>  " + date.toLocaleDateString() + "</div>" +
 				"<div class='graphic'><canvas class=" + skicons + "></canvas></div>" +
-				"<div style='float:left;margin-left:5px;'><img src='/svg/calendar.svg' height='30'/>  " + date.toLocaleDateString() + "</div>" +
+
 				//"<div style='float:left;margin-left:5px;'><img src='/svg/temperatura_basic.svg' height='30'/>  " + temp + "</div>" +
-				"<div style='float:left;margin-left:5px;'><img src='/svg/temperature_cold.svg' height='30'/> " + tempMin + "</div>" +
-				"<div style='float:left;margin-left:5px;'><img src='/svg/temperature_hot.svg' height='30'/>  " + tempMax + "</div>" +
-				"<div style='float:left;margin-left:5px;'><img src='/svg/humidity.svg' height='30'/> " + humidity + "%</div>" +
-				"<div style='float:left;margin-left:5px;'><img src='/svg/rain.svg' height='30'/>  " + probabilidad_lluvia + "%</div>" +
-				"<div style='float:left;margin-left:5px;'><img src='/svg/windy.svg' height='30'/>  " + wind + "</div>" +
+				"<div class='lineaIconosSup'>"+
+					"<div style='float:left;margin-left:5px;'><img src='svg/temperature_cold.svg' height='30'/> " + tempMin + "</div>" +
+					"<div style='float:left;margin-left:5px;'><img src='svg/temperature_hot.svg' height='30'/>  " + tempMax + "</div>" +
+					"<div style='float:left;margin-left:5px;'><img src='svg/humidity.svg' height='30'/> " + humidity + "%</div>" +
+				"</div>"+
+				"<div class='lineaIconosInf'>"+
+					"<div style='float:left;margin-left:5px;'><img src='svg/rain.svg' height='30'/>  " + probabilidad_lluvia + "%</div>" +
+					"<div style='float:left;margin-left:5px;'><img src='svg/windy.svg' height='30'/>  " + wind + "</div>" +
+				"</div>"+
 				"</div>"+
 				'</div></div><div class="back card">' 	
 		);
@@ -328,11 +333,11 @@ function calcularhorario() {
 			console.log("HORA REAL : "+hora_comparar+" | HORA ULTIMO METRO : "+hora_final_verdad)
 			if (hora_comparar > hora_final_verdad || (hora_comparar == 01 || hora_comparar == 02 || hora_comparar == 03 || hora_comparar == 04 || hora_comparar == 05 || hora_comparar == 00) || incluye_texto == true){
 				$("#metro").append(
-					"<div '><img style='right=100px;' src='/svg/train-travelling-on-railroad.svg' height='30'/> Ya no hay metros disponibles hasta las " + hora_inicio_buena + "</div>"
+					"<div '><img style='right=100px;' src='svg/train-travelling-on-railroad.svg' height='30'/> Ya no hay metros disponibles hasta las " + hora_inicio_buena + "</div>"
 				);
 			}else {
 				$("#metro").append(
-					"<div '><img style='right=100px;' src='/svg/train-travelling-on-railroad.svg' height='30'/> Horario : " + texto_horario + "</div>"
+					"<div '><img style='right=100px;' src='svg/train-travelling-on-railroad.svg' height='30'/> Horario : " + texto_horario + "</div>"
 				);};
 	     });
 	}, function (reason) {
