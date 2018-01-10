@@ -25,7 +25,7 @@ var long;
     $("#calendar").empty();
     $("#cumple").empty();
     google_calendar();
- 	weatherReport(lat,long); 
+ 	weatherReport(39.573050699999996,-0.32989759999999996); 
  	calcularhorario();
   },500000);//Set interval para que se refresque cada 15 min
   
