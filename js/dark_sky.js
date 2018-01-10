@@ -150,7 +150,7 @@ function weatherReport(lat,long) {
 					'</div></div><div class="back card">' 	
 		);
 		// Bucle para los días
-		for(var i = 0, l = forecast.daily.data.length; i < l - 1; i++) {
+		for(var i = 1, l = forecast.daily.data.length; i < l - 1; i++) {
 
 			var date     = new Date(forecast.daily.data[i].time * 1000),
 					day      = days[date.getDay()],
