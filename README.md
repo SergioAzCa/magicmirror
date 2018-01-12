@@ -37,22 +37,10 @@ nvm ls-remote
 
 nvm install XXXX VERSION
 
-npm install -g grunt-cli
+Descargamos NW en la raspberry desde la siguiente url : https://github.com/jalbam/nwjs_rpi
+
+Guardamos en nuestro .nvm correspondiente el nw  y a volar
 ```
-actualizacmos minimatch con : npm install minimatch@3.0.2 --save-dev  
-
-actualizamo graceful npm install -g graceful-fs graceful-fs@latest
-
-sudo npm install -g nodewebkit
-
-npm install -g generator-node-webkit
- 
-npm install -g yo
-
-//Si tenemos problemas al instalar el npm o al realizar cualquier tipo de instalacin posterior deberemos eliminarlo y hacer :
-
-sudo apt-get install npm
-
 ----------------------------------------------------------------------------------------
 
 ## CREACIÓN DE APP CON NODE WEBKIT
@@ -70,79 +58,27 @@ sudo su
 2º Generamos un archivo package.json que contendra :
 
 ```
+
 {
-  "name": "NOMBREDELPROYECTO",
-  "version": "0.0.1",
-  "main": "./html/index.html",
+  "name": "Fox",
+  "main": "index.html",
   "window": {
     "toolbar": false,
     "width": 800,
-    "height": 500
+    "height": 600,
+    "frame": true
+    //"kiosk": true // modo pantalla completa
   }
 }
 ```
 
 
-3º Creamos dentro de esta primera carpeta una nueva que se llamara  PROYECTO_build, que contendra 
+3º Guardamos todo en una misma carpeta contenedora, todo ira dentro de nuestra aplicación.
 
-![image](/imagenes/3.png)
-
-4º Dentro de la carpeta src copiaremos todo el contenido de nuestro primera carpeta
-
-![image](/imagenes/4.png)
-
-5º Generamos en la carteta PROYECTO_build el archivo package.json nuevo :
-
+4º Entramos dentro de nuestra e inicializamos el siguiente código:
 ```
-{
-"name": "testproject-build",
-"version": "0.0.1",
-"description": "Building testproject",
-"author": "Alguien <alguien@algunsitio.com>",
-"private": true,
-"dependencies": {
-"grunt": "~0.4.2",
-"grunt-node-webkit-builder": "~0.1.14"
-}
-}
-```
+zip -r FOX.nw *
 
-
-6º Generamos también el contenido de Grunt.js 
-
-```
-module.exports = function(grunt) {
-grunt.initConfig({
-pkg: grunt.file.readJSON('src/package.json'),
-nodewebkit: {
-options: {
-build_dir: './dist',
-// specifiy what to build
-mac: false,
-win: true,
-linux32: true,
-linux64: true
-},
-src: './src/**/*'
-},
-});
-
-grunt.loadNpmTasks('grunt-node-webkit-builder');
-
-grunt.registerTask('default', ['nodewebkit']);
-};
-```
-
-7º Entramos dentro de la carpeta PROYECTO_build y instalamos npm
-
-```
-npm install
-```
-
-8º Lanzamos GRUNT
-
-```
-grunt --force
 ```
 
 
