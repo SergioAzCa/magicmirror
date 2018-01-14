@@ -81,6 +81,26 @@ zip -r FOX.nw *
 
 ```
 
+# LIBERAR MEMORIA DE CACHE
+
+Existe un problema a la hora de mantener FOX enchufada constantemente, dado que la memoria cache va disminuyendo, por lo tanto cada hora liberamos esta memoria de la siguiente forma.
+
+```
+sync && sudo sysctl -w vm.drop_caches=3
+```
+Para un mejor rendimiento lo que hacemos es crear un .sh en /home/pi/crontab que contendra el siguiente archivo liberamemoria.sh:
+
+```
+#!/bin/bash
+sync 
+echo 3 > /proc/sys/vm/drop_caches
+```
+Y añadimos al crontab el siguente código
+```
+#!/bin/bash
+sync 
+echo 3 > /proc/sys/vm/drop_caches
+```
 
 # CAMERA BUILDING (OPENCV)
 
