@@ -80,6 +80,11 @@ sudo su
 zip -r FOX.nw *
 
 ```
+5ª Para inicializar la aplicación en la RPI
+```
+nvm use v9.4.0
+nw FOX.nw
+```
 
 # LIBERAR MEMORIA DE CACHE
 
